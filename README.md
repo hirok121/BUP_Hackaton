@@ -148,7 +148,7 @@ valid, cost-minimal plan) if `LLM_API_KEY` is unset or the provider is unreachab
 |---|---|---|
 | `LLM_PROVIDER` | no | `openai` |
 | `LLM_API_KEY` | no (but needed for real interpretation) | `""` |
-| `LLM_MODEL` | no | `gpt-4o-mini` |
+| `LLM_MODEL` | no | `gpt-4o` |
 | `LLM_BASE_URL` | no | provider default |
 | `LLM_TIMEOUT_S` | no | `3.5` |
 | `LLM_MAX_RETRIES` | no | `1` |
@@ -157,23 +157,26 @@ valid, cost-minimal plan) if `LLM_API_KEY` is unset or the provider is unreachab
 
 ## Docker
 
-Build and run locally:
+**Published image:** `docker.io/hirok121/gridwise:v1.0.0`
+(digest `sha256:884448e610ef6cd2af2f0b743cae3779c82ea30f47bdbf31ab02d217a73992cd`)
+
+Pull-and-run, verified on a machine that never built it:
+
+```bash
+docker pull hirok121/gridwise:v1.0.0
+docker run -p 8000:8000 \
+  -e LLM_PROVIDER=openai -e LLM_MODEL=gpt-4o -e LLM_API_KEY=<key> \
+  hirok121/gridwise:v1.0.0
+curl http://localhost:8000/health
+```
+
+Build and run locally instead:
 
 ```bash
 docker build -t gridwise:latest .
 docker run -p 8000:8000 \
-  -e LLM_PROVIDER=openai -e LLM_MODEL=gpt-4o-mini -e LLM_API_KEY=<key> \
+  -e LLM_PROVIDER=openai -e LLM_MODEL=gpt-4o -e LLM_API_KEY=<key> \
   gridwise:latest
-curl http://localhost:8000/health
-```
-
-Pull-and-run from a registry (fill in the real published reference before submission):
-
-```bash
-docker pull <registry>/<user>/gridwise:v1.0.0
-docker run -p 8000:8000 \
-  -e LLM_PROVIDER=openai -e LLM_MODEL=gpt-4o-mini -e LLM_API_KEY=<key> \
-  <registry>/<user>/gridwise:v1.0.0
 curl http://localhost:8000/health
 ```
 
