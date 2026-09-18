@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+# myfiles
+*.pdf
+.puku
+
 # Distribution / packaging
 .Python
 build/
